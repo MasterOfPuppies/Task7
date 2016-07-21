@@ -5,17 +5,17 @@ import org.openqa.selenium.support.PageFactory;
 
 public class HomePage {
 
-    WebDriver selenium;
+    private WebDriver selenium;
 
     @FindBy(css = ".sign-out-span>a")
-    WebElement signOut;
+    private WebElement signOut;
 
     public HomePage(WebDriver selenium) {
         this.selenium = selenium;
         PageFactory.initElements(selenium, this);
     }
 
-    public LoginPage toSingInPage(){
+    public LoginPage signOut(){
         signOutClick();
         return new LoginPage(selenium);
     }

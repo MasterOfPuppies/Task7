@@ -5,30 +5,33 @@ import static org.testng.Assert.assertTrue;
 
 public class Login {
     WebDriver selenium;
-    private LoginPage lp;
-    private HomePage hp;
+    private LoginPage loginPage;
+    private HomePage homePage;
 
-    @BeforeClass
+    @BeforeMethod
     public void setUp(){
         selenium = new FirefoxDriver();
     }
 
-    @AfterClass
+    @AfterMethod
     public void tearDown(){
         selenium.close();
     }
 
     @Test
     public void loginTest(){
-        lp = new LoginPage(selenium);
-        lp.get();
-        hp = lp.loginOperation("eugenborisik","1");
-        assertTrue(hp.isSignoutPresent());
+        loginPage = new LoginPage(selenium);
+        loginPage.load();
+        homePage = loginPage.login("eugenborisik","1");
+        assertTrue(homePage.isSignoutPresent());
     }
 
     @Test
     public void signoutTest(){
-        lp = hp.toSingInPage();
-        lp.isLoaded();
+        loginPage = new LoginPage(selenium);
+        loginPage.load();
+        homePage = loginPage.login("eugenborisik","1");
+        loginPage = homePage.signOut();
+        loginPage.isLoaded();
     }
 }
